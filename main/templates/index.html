@@ -52,17 +52,12 @@
 
 			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 mb-1 " >
 			  	<!-- categories -->
-				<a class="btn btn-outline-danger section active">Action</a>
-				<a class="btn btn-outline-danger section">Fantesi</a>
-				<a class="btn btn-outline-danger section">Kill</a>
-				<a class="btn btn-outline-danger section">sky</a>	
-				<a class="btn btn-outline-danger section active">France</a>
-				<a class="btn btn-outline-danger section">English</a>
-				<a class="btn btn-outline-danger section">Espanoil</a>
-			
+
+				<a class="btn btn-outline-danger section active">Hemmesi</a>
+				{% for category in categories %}
+					<a class="btn btn-outline-danger section" href='category/{{category.pk}}/'>{{ category.name }}</a>
+				{% endfor %}
 			</div>
-
-
 			<div class="row">
 
 
