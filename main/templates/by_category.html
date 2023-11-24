@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% load static %}
     {% block head %}
-        <title>Streamo - {{ current_category.name }}</title>
+        <title>AkunaTV - {{ current_category.name }}</title>
     {% endblock %}
     {% block body %}
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-3 mb-1 " >
@@ -30,6 +30,7 @@
                         <div class="col">
                             <a href='movie/{{ movie.pk }}' style="text-decoration: none;">
                                 <h1 class="h6 text-white mt-2">{{ movie.title }}</h1>
+                                <p class='text-secondary'>{{ movie.country.name }}, {{ movie.release_time.year }}</p>
                             </a>
                         </div>
                     </div>

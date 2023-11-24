@@ -35,7 +35,18 @@ body{
     font-family: 'Gugi';
     src: url('/static/assets/webfonts/Gugi-Regular.ttf');
 }
+.preview
+{
+    border-radius: 5px;
+    height: 40vh;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    cursor: pointer;
 
+    transition: all 0.2s;
+
+}
 .FontsGUGI
 {
     font-family: 'Gugi';

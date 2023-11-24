@@ -1,8 +1,64 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block head %}
-    <title>Streamo - {{ movie.title }}</title>
+    <title>AkunaTV - {{ movie.title }}</title>
 {% endblock %}
 {% block body %}
-    <div>test</div>
+    <div class="container mt-3">
+        <div class="h2 text-light">{{ movie.title }}<div>
+        <div class="row mt-3">
+            <div class="col-sm-4">
+                <div class="col-8">
+                    <img src="/media/{{movie.preview}}" alt='preview' width='100%'> 
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-sm">
+                        <h5 class="text-primary">Çykan wagty:</h5>
+                    </div>
+                    <div class="col-sm">
+                        <h5 class="text-light">{{ movie.release_time.day }}.{{ movie.release_time.month }}.{{ movie.release_time.year }} ýyl</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <h5 class="text-primary">Döwleti:</h5>
+                    </div>
+                    <div class="col-sm">
+                        <h5 class="text-light">{{ movie.country.name }}</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <h5 class="text-primary">Žanry:</h5>
+                    </div>
+                    <div class="col-sm">
+                        <h5 class="text-light">{{ movie.category.name }}</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <h5 class="text-primary">Hili:</h5>
+                    </div>
+                    <div class="col-sm">
+                        <h5 class="text-light">480p</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="h3 text-light">"{{ movie.title }}" barada:</div>
+            <div class="h5 text-secondary">{{ movie.description }}</div>
+        </div>
+        <div class="row mt-4">
+            <div class="h3 text-light">"{{ movie.title }}"-y onlaýn görmek:</div>
+            <video width='100%' controls autoplay>
+                <source src='/media/{{ movie.file }}'>
+            </video>
+        </div>
+        <div class="row mt-4">
+            <a download href='/media/{{ movie.file }}' class='btn btn-dark m-2'>"{{ movie.title }}"-y ýükle</a>
+        </div>
+    </div>
 {% endblock %}

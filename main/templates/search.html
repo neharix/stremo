@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block head %}
+    <title>AkunaTV - Gözlegiň netijesi</title>
+{% endblock %}
+{% block body %}
+    <div class='mt-3'></div>
+    {% for row in rows %}
+        <div class="row">
+
+            {% for movie in row %}
+            
+                <div class="col-2">
+                    <a href='/movie/{{ movie.pk }}' style="text-decoration: none;">
+                        <div class="col serieAnim" style="border-radius: 5px;background-repeat: no-repeat; height: 40vh;background-image: url('/media/{{ movie.preview }}');">
+                        </div>
+                    </a>
+                    
+                    <div class="col">
+                        <a href='/movie/{{ movie.pk }}' style="text-decoration: none;">
+                            <h1 class="h6 text-white mt-2">{{ movie.title }}</h1>
+                            <p class='text-secondary'>{{ movie.country.name }}, {{ movie.release_time.year }}</p>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

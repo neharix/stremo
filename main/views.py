@@ -1,49 +1,85 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Category, Movie
 
 
 def home(request):
-
-    last_id = Movie.objects.last().pk
-    first_id = Movie.objects.first().pk
-    second_row_bool = False
-
-    try:
-        row1 = Movie.objects.filter(pk__range=(last_id - 6, last_id))
-        second_row_bool = True
-    except:
-        row1 = Movie.objects.filter(pk__range=(first_id, last_id))
-    movies = Movie.objects.all().order_by('-created_at')
-
-    if second_row_bool:
+    if request.method == 'POST':
         try:
-            row1 = Movie.objects.filter(pk__range=(last_id - 13, last - 7))
+            request.session['query'] = request.POST['query']
+            return redirect('search')
         except:
-            row2 = Movie.objects.filter(pk__range=(first_id, last_id - 7))
-    
-    rows = [row1, row2]
+            return redirect('home')
+    else:
+        movies = Movie.objects.all().order_by('-release_time')
 
-    context = {"categories": Category.objects.all(), 'rows': rows}
-    return render(request, "index.html", context)
+        rows = [[]]
+        i = 0
+        for movie in movies:
+            if len(rows[i]) == 6:
+                i += 1
+                rows.append([])
+            rows[i].append(movie)
+
+        context = {"categories": Category.objects.all(), 'rows': rows}
+        return render(request, "index.html", context)
 
 def by_category(request, category_id):
-    current_category = Category.objects.get(pk=category_id)
-    movies = Movie.objects.filter(category__name=current_category.name).order_by('-created_at')
+    if request.method == 'POST':
+        try:
+            request.session['query'] = request.POST['query']
+            return redirect('search')
+        except:
+            return redirect('home')
+    else:
+        current_category = Category.objects.get(pk=category_id)
+        movies = Movie.objects.filter(category__name=current_category.name).order_by('-release_time')
 
 
-    rows = [[]]
-    i = 0
-    for movie in movies:
-        if len(rows[i]) == 6:
-            i += 1
-            rows.append([])
-        rows[i].append(movie)
+        rows = [[]]
+        i = 0
+        for movie in movies:
+            if len(rows[i]) == 6:
+                i += 1
+                rows.append([])
+            rows[i].append(movie)
 
-    context = {"categories": Category.objects.all(), 'rows': rows, "current_category": current_category}
-    return render(request, "by_category.html", context)
+        context = {"categories": Category.objects.all(), 'rows': rows, "current_category": current_category}
+        return render(request, "by_category.html", context)
 
 def by_movie(request, movie_id):
-    movie = Movie.objects.get(pk=movie_id)
+    if request.method == 'POST':
+        try:
+            request.session['query'] = request.POST['query']
+            return redirect('search')
+        except:
+            return redirect('home')
+    else:
+        movie = Movie.objects.get(pk=movie_id)
 
-    context = {"movie": movie}
-    return render(request, 'by_movie.html', context)
+        context = {"movie": movie}
+        return render(request, 'by_movie.html', context)
+
+def search(request):
+    if request.session.get('query'):
+        query = request.session['query'].capitalize()
+        del request.session['query']
+        found_content = Movie.objects.filter(title__contains=query)
+
+        rows = [[]]
+        i = 0
+        for movie in found_content:
+            if len(rows[i]) == 6:
+                i += 1
+                rows.append([])
+            rows[i].append(movie)        
+
+        return render(request, 'search.html', {'rows': rows})
+    else:
+        if request.method == 'POST':
+            try:
+                request.session['query'] = request.POST['query']
+                return redirect('search')
+            except:
+                return redirect('home')
+        else:
+            return redirect("home")

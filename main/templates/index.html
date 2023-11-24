@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% load static %}
 	{% block head %}
-		<title>Streamo - Baş sahypa</title>
+		<title>AkunaTV - Baş sahypa</title>
 	{% endblock %}
 
 	{% block body %}
-		<div class=" text-secondary py-5 mt-2 text-center" style="background-position: center;background-image: url('{% static 'assets/img/serie/casa_de_papel/wp6126886.jpg' %}');background-size: 100%;">
+		<div class=" text-secondary py-5 mt-2 text-center" style="background-position: center;background-image: url('{% static 'assets/img/banner/IMG_1053.webp' %}');background-size: 100%;">
 			<div class="py-5 my-5" style="background-color: rgba(0, 0, 0, 0.5);">
-				<h1 class="display-5 FontsGUGI text-white">LA CASA DE PAPEL</h1>
+				<h1 class="display-5 FontsGUGI text-white">JOHN WICK 4</h1>
 				<div class="col-lg-6 mx-auto">
 				<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
 					<a href="movie/3/" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold"><i class="fa fa-address-book"></i> Onlaýn Görmek</a>
@@ -39,6 +39,7 @@
 						<div class="col">
 							<a href='movie/{{ movie.pk }}' style="text-decoration: none;">
 								<h1 class="h6 text-white mt-2">{{ movie.title }}</h1>
+								<p class='text-secondary'>{{ movie.country.name }}, {{ movie.release_time.year }}</p>
 							</a>
 						</div>
 					</div>
