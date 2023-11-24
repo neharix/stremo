@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
 body{
     background-color: #151618;
     padding: 0px 30px;
@@ -31,6 +30,12 @@ body{
     background-size: 100%;
     height: 25vh;
 }
+
+@font-face {
+    font-family: 'Gugi';
+    src: url('/static/assets/webfonts/Gugi-Regular.ttf');
+}
+
 .FontsGUGI
 {
     font-family: 'Gugi';

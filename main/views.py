@@ -23,11 +23,27 @@ def home(request):
     
     rows = [row1, row2]
 
-    for i in range(2):
-        index = 0
-        for movie in movies:
-            index += 1
-            
-
     context = {"categories": Category.objects.all(), 'rows': rows}
     return render(request, "index.html", context)
+
+def by_category(request, category_id):
+    current_category = Category.objects.get(pk=category_id)
+    movies = Movie.objects.filter(category__name=current_category.name).order_by('-created_at')
+
+
+    rows = [[]]
+    i = 0
+    for movie in movies:
+        if len(rows[i]) == 6:
+            i += 1
+            rows.append([])
+        rows[i].append(movie)
+
+    context = {"categories": Category.objects.all(), 'rows': rows, "current_category": current_category}
+    return render(request, "by_category.html", context)
+
+def by_movie(request, movie_id):
+    movie = Movie.objects.get(pk=movie_id)
+
+    context = {"movie": movie}
+    return render(request, 'by_movie.html', context)
