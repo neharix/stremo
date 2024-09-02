@@ -1,0 +1,65 @@
+@font-face {
+    font-family: Exo;
+    src: url("/static/fonts/exo/Exo2-Regular.ttf");
+}
+@font-face {
+    font-family: Exo-Bold;
+    src: url("/static/fonts/exo/Exo2-Bold.ttf");
+}
+
+body{
+    background-color: #100F10;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    color: #fff;
+    font-family: Exo;
+}
+
+.container {
+    display: flex;
+}
+
+.vertical-divider {
+    border-left: 1px solid #0F0E0F;
+    border-right: 1px solid #111111;
+    width: 1px;
+    height: 100vh;
+    background-color: #121212;
+}
+
+aside {
+    height: 100vh;
+    float: left;
+    width: 200px;
+}
+.logo-wrap {
+    width: 100%;
+    margin-left: 40px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+}
+.list-wrap h4 {
+    color: #5E5E64;
+    font-size: 14px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+}
+.list-wrap ul li {
+    list-style-type: none;
+    margin: 25px 0 25px 0;
+}
+.list-wrap ul li a i {
+    margin-right: 5px;
+}
+.nav {
+    font-size: 16px;
+    color: #5E5E64;
+    text-decoration: none;
+    font-family: Exo-Bold;
+}
+.active {
+    color: #ffffff !important;
+}

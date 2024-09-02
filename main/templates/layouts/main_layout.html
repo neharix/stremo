@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="stylesheet" href="{% static "css/new_layout.css" %}">
+        <link href="https://iconsax.gitlab.io/i/icons.css" rel="stylesheet">
+        {% block head %}
+        {% endblock head %}
+        <title>{% block title %}{% endblock title %} - Streamari</title>
+
+	</head>
+    <body>
+        <div class="container">
+            <aside>
+                <div class="logo-wrap">
+                    <div>LOGO</div>
+                </div>
+                <div class="list-wrap">
+                    <h4>hello</h4>
+                    <ul>
+                        <li><a href="#" class="nav active"><i class="iconsax" icon-name="compass-1"></i> Browse</a></li>
+                        <li><a href="#" class="nav"><span>i</span> Watchlist</a></li>
+                        <li><a href="#" class="nav"><span>i</span> Coming soon</a></li>
+                    </ul>
+                </div>
+            </aside>
+            <div class="vertical-divider"></div>
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

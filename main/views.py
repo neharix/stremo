@@ -1,16 +1,22 @@
-from django.shortcuts import render, redirect
+from django.http import HttpRequest
+from django.shortcuts import redirect, render
+
 from .models import Category, Movie
 
 
+def main(request: HttpRequest):
+    return render(request, "views/new_index.html")
+
+
 def home(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
-            request.session['query'] = request.POST['query']
-            return redirect('search')
+            request.session["query"] = request.POST["query"]
+            return redirect("search")
         except:
-            return redirect('home')
+            return redirect("home")
     else:
-        movies = Movie.objects.all().order_by('-release_time')
+        movies = Movie.objects.all().order_by("-release_time")
 
         rows = [[]]
         i = 0
@@ -20,20 +26,22 @@ def home(request):
                 rows.append([])
             rows[i].append(movie)
 
-        context = {"categories": Category.objects.all(), 'rows': rows}
+        context = {"categories": Category.objects.all(), "rows": rows}
         return render(request, "index.html", context)
 
+
 def by_category(request, category_id):
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
-            request.session['query'] = request.POST['query']
-            return redirect('search')
+            request.session["query"] = request.POST["query"]
+            return redirect("search")
         except:
-            return redirect('home')
+            return redirect("home")
     else:
         current_category = Category.objects.get(pk=category_id)
-        movies = Movie.objects.filter(category__name=current_category.name).order_by('-release_time')
-
+        movies = Movie.objects.filter(category__name=current_category.name).order_by(
+            "-release_time"
+        )
 
         rows = [[]]
         i = 0
@@ -43,26 +51,32 @@ def by_category(request, category_id):
                 rows.append([])
             rows[i].append(movie)
 
-        context = {"categories": Category.objects.all(), 'rows': rows, "current_category": current_category}
+        context = {
+            "categories": Category.objects.all(),
+            "rows": rows,
+            "current_category": current_category,
+        }
         return render(request, "by_category.html", context)
 
+
 def by_movie(request, movie_id):
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
-            request.session['query'] = request.POST['query']
-            return redirect('search')
+            request.session["query"] = request.POST["query"]
+            return redirect("search")
         except:
-            return redirect('home')
+            return redirect("home")
     else:
         movie = Movie.objects.get(pk=movie_id)
 
         context = {"movie": movie}
-        return render(request, 'by_movie.html', context)
+        return render(request, "by_movie.html", context)
+
 
 def search(request):
-    if request.session.get('query'):
-        query = request.session['query'].capitalize()
-        del request.session['query']
+    if request.session.get("query"):
+        query = request.session["query"].capitalize()
+        del request.session["query"]
         found_content = Movie.objects.filter(title__contains=query)
 
         rows = [[]]
@@ -71,15 +85,15 @@ def search(request):
             if len(rows[i]) == 6:
                 i += 1
                 rows.append([])
-            rows[i].append(movie)        
+            rows[i].append(movie)
 
-        return render(request, 'search.html', {'rows': rows})
+        return render(request, "search.html", {"rows": rows})
     else:
-        if request.method == 'POST':
+        if request.method == "POST":
             try:
-                request.session['query'] = request.POST['query']
-                return redirect('search')
+                request.session["query"] = request.POST["query"]
+                return redirect("search")
             except:
-                return redirect('home')
+                return redirect("home")
         else:
             return redirect("home")
